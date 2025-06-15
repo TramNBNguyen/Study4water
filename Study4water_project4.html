@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study4Water - charity: water Study App Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+        
+        .app-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .wireframe-section {
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #4682B4;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+        
+        .app-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .study-area {
+            border: 3px solid #4682B4;
+            border-radius: 15px;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+        
+        .timer-section {
+            background: linear-gradient(135deg, #4682B4, #20B2AA);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .timer-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .session-info {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .progress-visualization {
+            padding: 30px;
+            background: white;
+            text-align: center;
+        }
+        
+        .water-forest {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 200px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .tree {
+            position: relative;
+            margin: 0 5px;
+        }
+        
+        .tree-trunk {
+            width: 15px;
+            height: 40px;
+            background: #8B4513;
+            margin: 0 auto;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .tree-leaves {
+            width: 40px;
+            height: 40px;
+            background: #228B22;
+            border-radius: 50%;
+            margin: 0 auto -10px auto;
+            position: relative;
+        }
+        
+        .tree-leaves::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #32CD32;
+            border-radius: 50%;
+        }
+        
+        .water-drops {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .drop {
+            width: 12px;
+            height: 12px;
+            background: #1E90FF;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            animation: dropGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes dropGlow {
+            0%, 100% { opacity: 0.6; transform: rotate(-45deg) scale(1); }
+            50% { opacity: 1; transform: rotate(-45deg) scale(1.1); }
+        }
+        
+        .impact-counter {
+            font-size: 1.3rem;
+            color: #4682B4;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .study-controls {
+            background: white;
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .control-title {
+            color: #4682B4;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .subject-selector {
+            margin-bottom: 15px;
+        }
+        
+        .subject-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: 2px solid #4682B4;
+            background: white;
+            color: #4682B4;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .subject-button.active {
+            background: #4682B4;
+            color: white;
+        }
+        
+        .subject-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timer-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .control-button {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-start {
+            background: #228B22;
+            color: white;
+        }
+        
+        .btn-pause {
+            background: #FFA500;
+            color: white;
+        }
+        
+        .btn-stop {
+            background: #DC143C;
+            color: white;
+        }
+        
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .stats-panel {
+            background: #20B2AA;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .impact-panel {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .impact-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .impact-description {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        
+        .donate-button {
+            background: #4682B4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .donate-button:hover {
+            background: #5A9BD4;
+            transform: translateY(-2px);
+        }
+        
+        .conversion-guide {
+            background: #f8f9fa;
+            border-left: 5px solid #20B2AA;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .conversion-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        
+        .conversion-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .icon-drop {
+            background: #87CEEB;
+        }
+        
+        .icon-tree {
+            background: #90EE90;
+        }
+        
+        .icon-well {
+            background: #FFD700;
+        }
+        
+        .mobile-layout {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .mobile-frame {
+            width: 320px;
+            height: 640px;
+            background: #333;
+            border-radius: 25px;
+            padding: 15px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-header {
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            padding: 15px;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .mobile-timer {
+            flex: 1;
+            background: linear-gradient(135deg, #4682B4, #20B2AA);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .mobile-time {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .mobile-subject {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        
+        .mobile-progress {
+            background: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .mobile-forest {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 80px;
+            margin: 10px 0;
+        }
+        
+        .mobile-tree {
+            width: 25px;
+            height: 50px;
+            background: #228B22;
+            border-radius: 50% 50% 0 0;
+            margin: 0 2px;
+            position: relative;
+        }
+        
+        .mobile-tree::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 15px;
+            background: #8B4513;
+        }
+        
+        .mobile-controls {
+            padding: 15px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .mobile-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .mobile-start {
+            background: #228B22;
+            color: white;
+        }
+        
+        .mobile-pause {
+            background: #FFA500;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="app-title">📚 Study4Water</h1>
+            <p class="subtitle">Turn Your Study Time Into Clean Water Impact</p>
+        </div>
+        
+        <div class="wireframe-section">
+            <h2 class="section-title">Desktop Study App Layout</h2>
+            <div class="app-layout">
+                <div class="study-area">
+                    <div class="timer-section">
+                        <div class="session-info">Current Session: Mathematics</div>
+                        <div class="timer-display">45:23</div>
+                        <div class="session-info">Focus Session Active</div>
+                    </div>
+                    
+                    <div class="progress-visualization">
+                        <h3 style="color: #4682B4; margin-bottom: 15px;">Your Water Forest</h3>
+                        <div class="water-forest">
+                            <div class="tree">
+                                <div class="tree-leaves"></div>
+                                <div class="tree-trunk"></div>
+                            </div>
+                            <div class="tree">
+                                <div class="tree-leaves"></div>
+                                <div class="tree-trunk"></div>
+                            </div>
+                            <div class="tree" style="opacity: 0.7;">
+                                <div class="tree-leaves" style="background: #90EE90;"></div>
+                                <div class="tree-trunk"></div>
+                            </div>
+                            <div class="water-drops">
+                                <div class="drop"></div>
+                                <div class="drop"></div>
+                                <div class="drop"></div>
+                                <div class="drop"></div>
+                                <div class="drop"></div>
+                            </div>
+                        </div>
+                        <div class="impact-counter">127 drops collected • 2 trees grown • 347 lives impacted</div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="study-controls">
+                        <h3 class="control-title">Study Session</h3>
+                        <div class="subject-selector">
+                            <button class="subject-button active">Mathematics</button>
+                            <button class="subject-button">Science</button>
+                            <button class="subject-button">History</button>
+                            <button class="subject-button">Language</button>
+                        </div>
+                        <div class="timer-controls">
+                            <button class="control-button btn-start">Start Session</button>
+                            <button class="control-button btn-pause">Pause</button>
+                            <button class="control-button btn-stop">End Session</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-panel">
+                        <h3 style="margin-bottom: 15px;">Today's Impact</h3>
+                        <div class="stat-item">
+                            <span>Study Time</span>
+                            <span class="stat-value">2h 17m</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Water Drops</span>
+                            <span class="stat-value">137</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Trees Grown</span>
+                            <span class="stat-value">2</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Lives Impacted</span>
+                            <span class="stat-value">347</span>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-panel">
+                        <div class="impact-title">🌊 Next Milestone</div>
+                        <div class="impact-description">
+                            23 more minutes of study will fund a water pump repair, providing clean water for 50 people!
+                        </div>
+                        <button class="donate-button">Amplify Impact</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="conversion-guide">
+                <h3 style="color: #4682B4; margin-bottom: 20px;">🎯 Study Time Conversion</h3>
+                <div class="conversion-item">
+                    <div class="conversion-icon icon-drop">💧</div>
+                    <div><strong>1 minute study</strong> = 1 water drop = Clean water for 1 person for 1 day</div>
+                </div>
+                <div class="conversion-item">
+                    <div class="conversion-icon icon-tree">🌳</div>
+                    <div><strong>60 minutes study</strong> = 1 tree = Water filtration system serving 20 families</div>
+                </div>
+                <div class="conversion-item">
+                    <div class="conversion-icon icon-well">🚰</div>
+                    <div><strong>5 hours study</strong> = 1 well = Permanent clean water access for entire village</div>
+                </div>
+            </div>
+            
+            <div class="mobile-layout">
+                <h2 class="section-title">Mobile Study Experience</h2>
+                <div class="mobile-frame">
+                    <div class="mobile-screen">
+                        <div class="mobile-header">
+                            Study4Water
+                        </div>
+                        <div class="mobile-timer">
+                            <div class="mobile-time">23:45</div>
+                            <div class="mobile-subject">Mathematics Session</div>
+                        </div>
+                        <div class="mobile-progress">
+                            <div style="font-weight: bold; color: #4682B4; margin-bottom: 10px;">Progress</div>
+                            <div class="mobile-forest">
+                                <div class="mobile-tree"></div>
+                                <div class="mobile-tree"></div>
+                                <div class="mobile-tree" style="opacity: 0.5;"></div>
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666;">45 drops • 15 min to next tree</div>
+                        </div>
+                        <div class="mobile-controls">
+                            <button class="mobile-btn mobile-start">Start</button>
+                            <button class="mobile-btn mobile-pause">Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
